@@ -1,0 +1,25 @@
+---Titanic---
+
+Titanic
+
+research titanic machine learning data set
+
+Data exploration in Python 
+	which features are needed
+	what is our target (who survived)
+	Should we delete all the rows with NaN
+
+Cleaning
+	fix or remove NaN 
+			histograms for each features
+			using average or the median of every feature
+			remove features we don’t need
+
+train our model
+	choose one or more machine learning techniques we are comfortable with
+	
+test our model
+	
+compare test results with actual results
+
+create or find the data for tableau and make a story
