@@ -1,6 +1,5 @@
 ---Titanic---
 
-Titanic
 
 research titanic machine learning data set
 
