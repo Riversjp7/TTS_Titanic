@@ -12,12 +12,14 @@ from sklearn import preprocessing
 import numpy as np
 
 def teacher(X_train, y_train,X_test,y_test,model):
+    ''' This is a general function to fit test and score machine learning models'''
     model.fit(X_train,y_train)
     modelP=model.predict(X_test)
     modelXor=np.sum(modelP^y_test)
     perc= 1-(modelXor/len(y_test))
     return modelXor,perc
 
+'''Cleaned data went through a few more feature engineering steps'''
 train=pd.read_csv("/Users/Launch/Coding Projects/TTS final project/clean_titanic.csv", 
             usecols=["Pclass","Sex","Age","SibSp","Parch","Survived"])
 
@@ -29,6 +31,7 @@ X_train, X_test, y_train, y_test = train_test_split(X,y ,
                                    random_state=0,  
                                    shuffle=True)
 
+'''Five basic classification algorithms were chosen for analysis'''
 svm=SVC(kernel='linear',C=1.0, random_state=0)
 knn= KNeighborsClassifier(n_neighbors=5,p=2,metric='minkowski')
 tree_mod= DecisionTreeClassifier(criterion="gini", max_depth=4, random_state=0)
@@ -41,6 +44,7 @@ model_tests=[svm,knn,tree_mod,lr,gnb]
 
 ensemble=VotingClassifier(estimators=list(zip(model_names,model_tests)),voting='hard')
 
+'''Training, testing, scoring and consolidation'''
 all_wrong=[]
 all_perc_right=[]
 for m in model_tests:
@@ -59,6 +63,7 @@ e2wrong,e2p=teacher(X_train, y_train,X_test,y_test,ensemble.set_params(svm='drop
 all_wrong=np.append(all_wrong,[ewrong,e2wrong])
 all_perc_right=np.append(all_perc_right,[ep,e2p,np.mean(all_perc_right)])
 
+'''visual representation of percentage of accuracy for models vs actual data'''
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
 l = np.arange(2)
